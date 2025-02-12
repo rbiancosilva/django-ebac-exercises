@@ -1,6 +1,10 @@
+from ..models import Post
 from django.views import generic
-from django.http import HttpResponse
 
-class PostView(generic.View):
-    def get(self, request, *args, **kwargs):
-        return HttpResponse('This is a response from Post view')
+class PostView(generic.ListView):
+    queryset = Post.objects.order_by('-created_on')
+    template_name = 'index.html'
+
+class PostDetail(generic.DetailView):
+    model = Post
+    template_name = 'post_detail.html'
